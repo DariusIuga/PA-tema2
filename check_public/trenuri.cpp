@@ -1,48 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-constexpr int MAX_NR_NODES = 200010;
-
-void topologicalSortUtil(const string& node, unordered_map<string, vector<string>>& cities, unordered_map<string, bool>& visited, stack<string>& Stack) {
+void topo_sort(const string& node, unordered_map<string, vector<string>>& neigh_cities, unordered_map<string, bool>& visited, stack<string>& node_stack) {
     visited[node] = true;
-    for (const string& adj : cities[node]) {
+
+    for (const string& adj : neigh_cities[node]) {
         if (!visited[adj]) {
-            topologicalSortUtil(adj, cities, visited, Stack);
+            topo_sort(adj, neigh_cities, visited, node_stack);
         }
     }
-    Stack.push(node);
+    node_stack.push(node);
 }
 
-int findLongestPath(unordered_map<string, vector<string>>& cities, const string& source, const string& destination) {
+int get_longest_path_length(unordered_map<string, vector<string>>& neigh_cities, const string& source, const string& destination) {
     unordered_map<string, bool> visited;
-    stack<string> Stack;
+    stack<string> node_stack;
 
     // Initialize visited map
-    for (const auto& city : cities) {
+    for (const auto& city : neigh_cities) {
         visited[city.first] = false;
     }
 
     // Perform topological sort
-    for (const auto& city : cities) {
+    for (const auto& city : neigh_cities) {
         if (!visited[city.first]) {
-            topologicalSortUtil(city.first, cities, visited, Stack);
+            topo_sort(city.first, neigh_cities, visited, node_stack);
         }
     }
 
     // Initialize distances to all nodes as negative infinity
     unordered_map<string, int> dist;
-    for (const auto& city : cities) {
+    for (const auto& city : neigh_cities) {
         dist[city.first] = INT_MIN;
     }
-    dist[source] = 0;
+    // The distance to the source is 1
+    dist[source] = 1;
 
-    // Process nodes in topological order
-    while (!Stack.empty()) {
-        string node = Stack.top();
-        Stack.pop();
+    // Process nodes in topological order (as they were put in the stack)
+    while (!node_stack.empty()) {
+        string node = node_stack.top();
+        node_stack.pop();
 
         if (dist[node] != INT_MIN) {
-            for (const string& adj : cities[node]) {
+            for (const string& adj : neigh_cities[node]) {
                 if (dist[adj] < dist[node] + 1) {
                     dist[adj] = dist[node] + 1;
                 }
@@ -50,12 +50,12 @@ int findLongestPath(unordered_map<string, vector<string>>& cities, const string&
         }
     }
 
-    return dist[destination] + 1; // +1 to include the destination node itself
+    return dist[destination];
 }
 
 int main() {
     ios::sync_with_stdio(false);
-    unordered_map<string, vector<string>> cities;
+    unordered_map<string, vector<string>> neigh_cities;
     string source, destination;
     int nr_edges;
 
@@ -65,10 +65,11 @@ int main() {
     for (int i = 0; i < nr_edges; i++) {
         string map_source, map_dest;
         in >> map_source >> map_dest;
-        cities[map_source].push_back(map_dest);
+        neigh_cities[map_source].push_back(map_dest);
     }
 
-    int result = findLongestPath(cities, source, destination);
+    // Get the length of the longest path
+    int result = get_longest_path_length(neigh_cities, source, destination);
 
     // Write result
     ofstream out("trenuri.out");
