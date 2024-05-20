@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "**/views/**/*.html": "django-html",
+        "*.html": "html",
+        "*.js": "javascript",
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "*.hs": "haskell",
+        "*.pl": "prolog",
+        "ostream": "cpp"
+    }
+}

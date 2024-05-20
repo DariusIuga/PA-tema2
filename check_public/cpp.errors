@@ -1,5 +1,10 @@
 /home/darius/Documents/Facultate/PA/Teme/PA-tema2/check_public/_utils/coding_style/check_cpp.py:57: DeprecationWarning: module 'sre_compile' is deprecated
   import sre_compile
-./numarare.cpp:19:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
+./numarare.cpp:7:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
+./numarare.cpp:40:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./trenuri.cpp:6:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./trenuri.cpp:16:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./trenuri.cpp:53:  At least two spaces is best between code and comments  [whitespace/comments] [2]
 Done processing ./numarare.cpp
-Total errors found: 1
+Done processing ./trenuri.cpp
+Total errors found: 5
