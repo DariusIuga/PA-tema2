@@ -3,15 +3,16 @@
 ./drumuri.cpp:10:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./drumuri.cpp:11:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./drumuri.cpp:43:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./drumuri.cpp:48:  Missing space after ,  [whitespace/comma] [3]
 ./drumuri.cpp:61:  Missing space after ;  [whitespace/semicolon] [3]
 ./drumuri.cpp:62:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
 ./drumuri.cpp:63:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./drumuri.cpp:64:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./drumuri.cpp:73:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
 ./drumuri.cpp:73:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
-./numarare.cpp:7:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
-./numarare.cpp:40:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./numarare.cpp:12:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./numarare.cpp:31:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
+./numarare.cpp:66:  Missing space after ;  [whitespace/semicolon] [3]
+./numarare.cpp:77:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./trenuri.cpp:14:  public: should be indented +1 space inside class AdjListNode  [whitespace/indent] [3]
 ./trenuri.cpp:15:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
 ./trenuri.cpp:23:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
@@ -20,8 +21,7 @@
 ./trenuri_29.cpp:4:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./trenuri_29.cpp:15:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 Done processing ./drumuri.cpp
-Done processing ./drumuri_old.cpp
 Done processing ./numarare.cpp
 Done processing ./trenuri.cpp
 Done processing ./trenuri_29.cpp
-Total errors found: 19
+Total errors found: 20
