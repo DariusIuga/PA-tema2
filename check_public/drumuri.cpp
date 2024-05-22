@@ -64,6 +64,7 @@ int main() {
             minimum_cost_path = min(minimum_cost_path, dist_from_x[node] + dist_from_y[node] + dist_to_z[node]);
         }
     }
+
     // Write result
     ofstream out("drumuri.out");
     if (minimum_cost_path == LONG_LONG_MAX) {
