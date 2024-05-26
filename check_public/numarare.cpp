@@ -43,7 +43,9 @@ int main() {
     // Create graphs with adjacency lists
     Graph graph1, graph2;
     graph1.nr_nodes = nr_nodes;
+    graph1.nr_edges = nr_edges;
     graph2.nr_nodes = nr_nodes;
+    graph2.nr_edges = nr_edges;
 
     // Add edges to graph1
     for (int i = 0; i < nr_edges; i++) {

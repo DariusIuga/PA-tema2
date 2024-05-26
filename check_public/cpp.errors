@@ -10,17 +10,11 @@
 ./drumuri.cpp:74:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
 ./drumuri.cpp:74:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
 ./numarare.cpp:8:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
-./numarare.cpp:70:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./numarare.cpp:77:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./trenuri.cpp:14:  public: should be indented +1 space inside class AdjListNode  [whitespace/indent] [3]
-./trenuri.cpp:15:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-./trenuri.cpp:23:  public: should be indented +1 space inside class Graph  [whitespace/indent] [3]
-./trenuri.cpp:24:  Single-parameter constructors should be marked explicit.  [runtime/explicit] [5]
-./trenuri.cpp:79:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-./trenuri_29.cpp:4:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./trenuri_29.cpp:15:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./numarare.cpp:73:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./numarare.cpp:88:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+./trenuri.cpp:4:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./trenuri.cpp:15:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 Done processing ./drumuri.cpp
 Done processing ./numarare.cpp
 Done processing ./trenuri.cpp
-Done processing ./trenuri_29.cpp
-Total errors found: 19
+Total errors found: 14

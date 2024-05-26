@@ -1,126 +1,81 @@
-#include <iostream>
-#include <fstream>
-#include <unordered_map>
-#include <vector>
-#include <list>
-#include <stack>
-#include <string>
-#include <climits>
-#define NINF INT_MIN
+#include <bits/stdc++.h>
 using namespace std;
 
-class AdjListNode {
-    int v;
-public:
-    AdjListNode(int _v) { v = _v; }
-    int getV() { return v; }
-};
+void topo_sort(const string& node, unordered_map<string, vector<string>>& neigh_cities, unordered_map<string, bool>& visited, stack<string>& node_stack) {
+    visited[node] = true;
 
-class Graph {
-    int V;
-    list<AdjListNode>* adj;
-    void topologicalSortUtil(int v, bool visited[], stack<int>& Stack);
-public:
-    Graph(int V);
-    ~Graph();
-    void addEdge(int u, int v);
-    int longestPath(int s, int t);
-};
-
-Graph::Graph(int V) {
-    this->V = V;
-    adj = new list<AdjListNode>[V];
-}
-
-Graph::~Graph() {
-    delete[] adj;
-}
-
-void Graph::addEdge(int u, int v) {
-    AdjListNode node(v);
-    adj[u].push_back(node);
-}
-
-void Graph::topologicalSortUtil(int v, bool visited[], stack<int>& Stack) {
-    visited[v] = true;
-    for (AdjListNode node : adj[v]) {
-        if (!visited[node.getV()])
-            topologicalSortUtil(node.getV(), visited, Stack);
+    for (const string& adj : neigh_cities[node]) {
+        if (!visited[adj]) {
+            topo_sort(adj, neigh_cities, visited, node_stack);
+        }
     }
-    Stack.push(v);
+    node_stack.push(node);
 }
 
-int Graph::longestPath(int s, int t) {
-    stack<int> Stack;
-    int* dist = new int[V];
-    bool* visited = new bool[V];
-    for (int i = 0; i < V; i++)
-        visited[i] = false;
+int get_longest_path_length(unordered_map<string, vector<string>>& neigh_cities, const string& source, const string& destination) {
+    unordered_map<string, bool> visited;
+    stack<string> node_stack;
 
-    for (int i = 0; i < V; i++)
-        if (!visited[i])
-            topologicalSortUtil(i, visited, Stack);
+    // Initialize visited map
+    for (const auto& city : neigh_cities) {
+        visited[city.first] = false;
+    }
 
-    for (int i = 0; i < V; i++)
-        dist[i] = NINF;
-    dist[s] = 0;
+    // Initialize distances to all nodes as negative infinity
+    unordered_map<string, int> dist;
+    for (const auto& city : neigh_cities) {
+        dist[city.first] = INT_MIN;
+    }
+    // The distance to the source is 1 (include the source itself)
+    dist[source] = 1;
 
-    while (!Stack.empty()) {
-        int u = Stack.top();
-        Stack.pop();
-        if (dist[u] != NINF) {
-            for (AdjListNode node : adj[u]) {
-                if (dist[node.getV()] < dist[u] + 1)
-                    dist[node.getV()] = dist[u] + 1;
+    // Perform topological sort
+    for (const auto& city : neigh_cities) {
+        if (!visited[city.first]) {
+            topo_sort(city.first, neigh_cities, visited, node_stack);
+        }
+    }
+
+    // Process nodes in topological order (as they were put in the stack)
+    while (!node_stack.empty()) {
+        string node = node_stack.top();
+        node_stack.pop();
+
+        if (dist[node] != INT_MIN) {
+            for (const string& adj : neigh_cities[node]) {
+                // Update the distance if it is greater
+                if (dist[adj] < dist[node] + 1) {
+                    dist[adj] = dist[node] + 1;
+                }
             }
         }
     }
 
-    int result = dist[t] + 1; // +1 to include the start city itself
-    delete[] visited;
-    delete[] dist;
-    return result;
+    return dist[destination];
 }
 
 int main() {
-    ifstream infile("trenuri.in");
-    ofstream outfile("trenuri.out");
+    ios::sync_with_stdio(false);
+    // Adjacency list for a city
+    unordered_map<string, vector<string>> neigh_cities;
+    string source, destination;
+    int nr_edges;
 
-    string start_city, destination_city;
-    int M;
-    infile >> start_city >> destination_city >> M;
-
-    unordered_map<string, int> city_index;
-    vector<string> cities;
-    vector<pair<string, string>> edges;
-
-    for (int i = 0; i < M; i++) {
-        string u, v;
-        infile >> u >> v;
-        edges.push_back({ u, v });
-        if (city_index.find(u) == city_index.end()) {
-            city_index[u] = cities.size();
-            cities.push_back(u);
-        }
-        if (city_index.find(v) == city_index.end()) {
-            city_index[v] = cities.size();
-            cities.push_back(v);
-        }
+    // Get input
+    ifstream in("trenuri.in");
+    in >> source >> destination >> nr_edges;
+    for (int i = 0; i < nr_edges; i++) {
+        string map_source, map_dest;
+        in >> map_source >> map_dest;
+        neigh_cities[map_source].push_back(map_dest);
     }
 
-    int V = cities.size();
-    Graph g(V);
-    for (const auto& edge : edges) {
-        g.addEdge(city_index[edge.first], city_index[edge.second]);
-    }
+    // Get the length of the longest path
+    int result = get_longest_path_length(neigh_cities, source, destination);
 
-    int start = city_index[start_city];
-    int destination = city_index[destination_city];
-    int result = g.longestPath(start, destination);
+    // Write result
+    ofstream out("trenuri.out");
+    out << result;
 
-    outfile << result << endl;
-
-    infile.close();
-    outfile.close();
     return 0;
 }
